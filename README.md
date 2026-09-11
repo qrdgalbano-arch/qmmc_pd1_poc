@@ -1,4 +1,4 @@
-﻿# QMMC PD1 Proof of Concept
+# QMMC PD1 Proof of Concept
 
 ## Project Description
 
@@ -70,3 +70,8 @@ The system will be developed in the following order:
 ## Repository
 
 qrdgalbano-arch/qmmc_pd1_poc
+## Validation and Deployment
+
+- See [TESTING.md](TESTING.md) for automated backend tests, Flutter checks, runtime smoke tests, and POC test limitations.
+- See [DEPLOYMENT.md](DEPLOYMENT.md) for production-environment setup, Docker Compose deployment, backups, rollback, HTTPS requirements, Android signing, and deployment limitations.
+- Use `docker-compose.production.yml` only with a private, untracked `.env.production` created from `.env.production.example`.
