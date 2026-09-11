@@ -160,6 +160,12 @@ class ExerciseSession(Base):
         default=SyncStatus.synced,
     )
 
+    patient = relationship(
+        "User",
+        foreign_keys=[patient_id],
+    )
+    prescription = relationship("Prescription")
+
 
 class StaffFlag(Base):
     __tablename__ = "staff_flags"
@@ -179,4 +185,9 @@ class StaffFlag(Base):
     created_at: Mapped[datetime] = mapped_column(
         DateTime,
         default=datetime.utcnow,
+    )
+
+    patient = relationship(
+        "User",
+        foreign_keys=[patient_id],
     )
