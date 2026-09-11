@@ -34,14 +34,15 @@ def create_user(
 
 create_user(
     full_name="Demo Rehabilitation Staff",
-    email="staff@qmmc.local",
+    email="staff@example.com",
     password="StaffDemo123!",
     role=UserRole.staff,
 )
 
 create_user(
     full_name="Demo Patient",
-    email="patient@qmmc.local",
+    email="patient@example.com",
     password="PatientDemo123!",
     role=UserRole.patient,
 )
+
