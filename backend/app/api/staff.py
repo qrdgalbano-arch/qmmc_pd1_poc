@@ -1,6 +1,6 @@
 ﻿from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.api.dependencies import require_staff
 from app.database.session import get_db
@@ -99,5 +99,11 @@ def create_prescription(
 
     db.add(prescription)
     db.commit()
-    db.refresh(prescription)
-    return prescription
+
+    created_prescription = db.scalar(
+        select(Prescription)
+        .options(joinedload(Prescription.exercise))
+        .where(Prescription.id == prescription.id)
+    )
+
+    return created_prescription

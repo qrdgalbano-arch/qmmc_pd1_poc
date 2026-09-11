@@ -3,6 +3,14 @@
 from pydantic import BaseModel, ConfigDict, Field
 
 
+class ExerciseSummaryResponse(BaseModel):
+    id: int
+    name: str
+    description: str
+
+    model_config = ConfigDict(from_attributes=True)
+
+
 class PrescriptionCreate(BaseModel):
     patient_id: int = Field(gt=0)
     exercise_id: int = Field(gt=0)
@@ -21,5 +29,6 @@ class PrescriptionResponse(BaseModel):
     scheduled_days: str
     is_active: bool
     created_at: datetime
+    exercise: ExerciseSummaryResponse
 
     model_config = ConfigDict(from_attributes=True)

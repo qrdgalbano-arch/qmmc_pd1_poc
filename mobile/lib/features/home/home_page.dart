@@ -1,4 +1,4 @@
-﻿import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
@@ -98,8 +98,12 @@ class HomePage extends ConsumerWidget {
                       ),
                       const SizedBox(height: 12),
                       Text(
-                        'Exercise #${firstPrescription.exerciseId}',
+                        firstPrescription.exercise.name,
                         style: const TextStyle(fontSize: 22),
+                      ),
+                      const SizedBox(height: 8),
+                      Text(
+                        firstPrescription.exercise.description,
                       ),
                       const SizedBox(height: 8),
                       Text(

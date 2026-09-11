@@ -1,6 +1,6 @@
 ﻿from fastapi import APIRouter, Depends
 from sqlalchemy import select
-from sqlalchemy.orm import Session
+from sqlalchemy.orm import Session, joinedload
 
 from app.api.dependencies import require_patient
 from app.database.session import get_db
@@ -22,6 +22,7 @@ def list_my_prescriptions(
     return list(
         db.scalars(
             select(Prescription)
+            .options(joinedload(Prescription.exercise))
             .where(
                 Prescription.patient_id == patient.id,
                 Prescription.is_active.is_(True),
