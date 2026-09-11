@@ -45,18 +45,6 @@ The final pose-estimation component may be integrated in a later development pha
 - Nginx
 - Git and GitHub
 
-## Repository Setup
-
-At the initial setup stage, the repository contains only:
-
-```text
-.env.example
-.gitignore
-README.md
-```
-
-Additional folders and source files will be created progressively through terminal commands during each modular development layer.
-
 ## Development Approach
 
 The system will be developed in the following order:
