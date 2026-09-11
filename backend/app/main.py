@@ -1,41 +1,24 @@
 ﻿from fastapi import FastAPI
-from fastapi.middleware.cors import CORSMiddleware
 
-from app.core.config import settings
+from app.api.auth import router as auth_router
 
 app = FastAPI(
-    title="QMMC PD1 Proof of Concept API",
+    title="QMMC PD1 Proof of Concept",
     version="0.1.0",
-    description=(
-        "Backend proof of concept for an offline-first rehabilitation "
-        "application without pose estimation or deep learning."
-    ),
 )
 
-origins = [
-    origin.strip()
-    for origin in settings.cors_origins.split(",")
-    if origin.strip()
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+app.include_router(auth_router)
 
 
 @app.get("/")
-def root():
+def root() -> dict:
     return {
-        "message": "QMMC PD1 Proof of Concept API is running.",
+        "message": "QMMC PD1 Proof of Concept API",
     }
 
 
 @app.get("/health")
-def health_check():
+def health() -> dict:
     return {
         "status": "healthy",
         "service": "qmmc-pd1-backend",
