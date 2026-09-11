@@ -1,5 +1,9 @@
-﻿from fastapi import FastAPI
+﻿from pathlib import Path
+
+from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 
 from app.api.auth import router as auth_router
 from app.api.patients import router as patients_router
@@ -16,7 +20,7 @@ app.add_middleware(
         "http://localhost",
         "http://127.0.0.1",
     ],
-    allow_origin_regex=r"^http://(localhost|127\.0\.0\.1):\d+$",
+    allow_origin_regex=r"http://(localhost|127\.0\.0\.1)(:\d+)?",
     allow_credentials=False,
     allow_methods=["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
     allow_headers=["Authorization", "Content-Type"],
@@ -25,6 +29,19 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(staff_router)
 app.include_router(patients_router)
+
+web_directory = Path(__file__).resolve().parent / "web"
+
+app.mount(
+    "/staff-dashboard/static",
+    StaticFiles(directory=web_directory / "static"),
+    name="staff-dashboard-static",
+)
+
+
+@app.get("/staff-dashboard", include_in_schema=False)
+def staff_dashboard() -> FileResponse:
+    return FileResponse(web_directory / "staff_dashboard.html")
 
 
 @app.get("/")
@@ -41,4 +58,3 @@ def health() -> dict:
         "pose_estimation": "not included",
         "deep_learning": "not included",
     }
-
