@@ -1,4 +1,4 @@
-﻿# Environment variables and secrets
+# Environment variables and secrets
 .env
 *.env
 !.env.example
@@ -44,3 +44,6 @@ android/app/release/
 # Operating system files
 .DS_Store
 Thumbs.db
+
+# Production environment secrets
+.env.production
